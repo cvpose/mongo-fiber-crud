@@ -41,5 +41,4 @@ func InitDatabase() {
 	}
 
 	log.Println("Connected to MongoDB with mgm!")
-
 }

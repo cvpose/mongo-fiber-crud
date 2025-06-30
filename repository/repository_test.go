@@ -1,8 +1,10 @@
 package repository
 
 import (
+	"os"
 	"testing"
 
+	"github.com/cvpose/crud/testutil"
 	"github.com/kamva/mgm/v3"
 	"github.com/stretchr/testify/assert"
 )
@@ -11,6 +13,16 @@ type TestModel struct {
 	mgm.DefaultModel `bson:",inline"`
 	Name             string `bson:"name"`
 	Age              int    `bson:"age"`
+}
+
+func TestMain(m *testing.M) {
+	_, cleanup, err := testutil.SetupMongoContainer()
+	if err != nil {
+		os.Exit(1)
+	}
+	code := m.Run()
+	cleanup()
+	os.Exit(code)
 }
 
 func TestRepository_New(t *testing.T) {
