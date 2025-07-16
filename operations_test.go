@@ -8,49 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func TestRepository_Create(t *testing.T) {
-	// cleanup := setupTestDB(t)
-	// defer cleanup()
-	ctx := context.Background()
-	repo := New(&TestModel{})
-	repo.collection.Drop(ctx)
-
-	model := &TestModel{Name: "Alice", Age: 30}
-	err := repo.Create(ctx, model)
-	assert.NoError(t, err)
-	assert.NotEmpty(t, model.ID.Hex())
-}
-
-func TestRepository_GetByID(t *testing.T) {
-	// cleanup := setupTestDB(t)
-	// defer cleanup()
-	ctx := context.Background()
-	repo := New(&TestModel{})
-	repo.collection.Drop(ctx)
-
-	model := &TestModel{Name: "Alice", Age: 30}
-	repo.Create(ctx, model)
-
-	fetched := &TestModel{}
-	err := repo.GetByID(ctx, model.ID.Hex(), fetched)
-	assert.NoError(t, err)
-	assert.Equal(t, "Alice", fetched.Name)
-}
-
-func TestRepository_GetAll(t *testing.T) {
-	// cleanup := setupTestDB(t)
-	// defer cleanup()
-	ctx := context.Background()
-	repo := New(&TestModel{})
-	repo.collection.Drop(ctx)
-
-	repo.Create(ctx, &TestModel{Name: "Alice", Age: 30})
-	var all []TestModel
-	err := repo.GetAll(ctx, bson.M{"name": "Alice"}, &all)
-	assert.NoError(t, err)
-	assert.Len(t, all, 1)
-}
-
 func TestRepository_Update(t *testing.T) {
 	// cleanup := setupTestDB(t)
 	// defer cleanup()

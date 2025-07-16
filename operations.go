@@ -11,43 +11,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// Create inserts a new document into the collection
-func (r *Repository) Create(ctx context.Context, model mgm.Model) error {
-	return mgm.Coll(model).Create(model)
-}
-
-// GetByID retrieves a document by its ID
-func (r *Repository) GetByID(ctx context.Context, id string, result mgm.Model) error {
-	objectID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return errors.New("invalid object ID format")
-	}
-
-	err = r.collection.FindByID(objectID, result)
-	if err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return errors.New("document not found")
-		}
-		return err
-	}
-
-	return nil
-}
-
-// GetAll retrieves all documents matching the filter
-func (r *Repository) GetAll(ctx context.Context, filter bson.M, results interface{}, opts ...*options.FindOptions) error {
-	if filter == nil {
-		filter = bson.M{}
-	}
-
-	err := r.collection.SimpleFind(results, filter, opts...)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // Update updates a document by its ID with the provided update fields
 func (r *Repository) Update(ctx context.Context, id string, update bson.M, result mgm.Model) error {
 	objectID, err := primitive.ObjectIDFromHex(id)

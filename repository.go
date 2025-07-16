@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/cvpose/crud/database"
+	"github.com/cvpose/repository/database"
 	"github.com/kamva/mgm/v3"
 )
 

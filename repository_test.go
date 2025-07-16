@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cvpose/crud/testutil"
+	"github.com/cvpose/repository/testutil"
 	"github.com/kamva/mgm/v3"
 	"github.com/stretchr/testify/assert"
 )
