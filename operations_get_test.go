@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/kamva/mgm/v3"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -61,13 +60,13 @@ func TestRepository_GetByID_NotFound(t *testing.T) {
 }
 
 // To test GetAll error, we need to simulate an error from SimpleFind. We'll use a custom collection stub for this.
-type errorCollection struct {
-	mgm.Collection
-}
+// type errorCollection struct {
+// 	mgm.Collection
+// }
 
-func (e *errorCollection) SimpleFind(results interface{}, filter interface{}, opts ...interface{}) error {
-	return assert.AnError
-}
+// func (e *errorCollection) SimpleFind(results interface{}, filter interface{}, opts ...interface{}) error {
+// 	return assert.AnError
+// }
 
 // func TestRepository_GetAll_Error(t *testing.T) {
 // 	repo := New(&TestModel{})
